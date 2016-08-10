@@ -58,5 +58,18 @@ extension ToDoList: UITableViewDataSource{
         cell.textLabel!.text = item //Lo ponemos con el signo de admiracion por que es opcional
         return cell
     }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true         //se dice que si se puede editar la celda de la tabla
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,
+        forRowAtIndexPath indexPath: NSIndexPath) {
+        items.removeAtIndex(indexPath.row)
+        saveItems()
+        tableView.beginUpdates()
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Middle)
+        tableView.endUpdates()
+    }
 }
 
