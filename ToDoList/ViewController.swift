@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var itemTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     let todoList = ToDoList()
-    
+        
     @IBAction func  addButtonPressed(sender: UIButton){
         print("Agregando un elemento a la lista: \(itemTextField.text)")
         todoList.addItem(itemTextField.text!)
@@ -30,7 +30,6 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 
 }
 
