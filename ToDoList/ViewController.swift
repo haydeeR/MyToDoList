@@ -35,9 +35,13 @@ class ViewController: UIViewController, UITableViewDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    //MARK: Metodos del table view
     func scrollViewDidScroll(scrollView: UIScrollView) {
         self.itemTextField?.resignFirstResponder()
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.performSegueWithIdentifier("showItem", sender: self)
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, ReplaceString string: String)-> Bool{
