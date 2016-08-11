@@ -11,9 +11,12 @@ import UIKit
 class DetailViewController: UIViewController {
 
     var item: String?
+    @IBOutlet weak var tareaLabel: UILabel!
+    @IBOutlet weak var fechaLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("item: \(item)")
+        self.tareaLabel.text = item
         // Do any additional setup after loading the view.
     }
 
@@ -22,6 +25,15 @@ class DetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func dateSelected(sender: UIDatePicker) {
+        self.fechaLabel.text = formatDate(sender.date)
+    }
+    
+    func formatDate(date: NSDate)->String{
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy HH:mm"
+        return formatter.stringFromDate(date)
+    }
 
     /*
     // MARK: - Navigation

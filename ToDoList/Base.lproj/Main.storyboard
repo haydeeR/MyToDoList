@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -86,8 +87,78 @@
                     <view key="view" contentMode="scaleToFill" id="vwt-nz-enm">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="TZc-Wq-K9c">
+                                <rect key="frame" x="0.0" y="64" width="600" height="300"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="r0o-Xl-Qyc">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tarea:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e6B-XE-5eh">
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="150"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r9a-4Z-J0M">
+                                                <rect key="frame" x="300" y="0.0" width="300" height="150"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="UEs-NW-X8O">
+                                        <rect key="frame" x="0.0" y="150" width="600" height="150"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fecha:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UEW-BA-uN8">
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="150"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sin fecha" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yJ6-kW-fZd">
+                                                <rect key="frame" x="300" y="0.0" width="300" height="150"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="KUE-8N-pm7">
+                                <rect key="frame" x="0.0" y="364" width="600" height="216"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="216" id="2Ka-SA-P4D"/>
+                                    <constraint firstAttribute="height" constant="216" id="KJ6-kk-Eid"/>
+                                </constraints>
+                                <date key="date" timeIntervalSinceReferenceDate="492630365.37896401">
+                                    <!--2016-08-11 17:46:05 +0000-->
+                                </date>
+                                <date key="minimumDate" timeIntervalSinceReferenceDate="473338802">
+                                    <!--2016-01-01 11:00:02 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="dateSelected:" destination="FRH-VY-v9q" eventType="valueChanged" id="uKm-rv-e3o"/>
+                                </connections>
+                            </datePicker>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="TZc-Wq-K9c" firstAttribute="top" secondItem="Dqv-m8-zHl" secondAttribute="bottom" id="92m-RN-hho"/>
+                            <constraint firstItem="TZc-Wq-K9c" firstAttribute="leading" secondItem="vwt-nz-enm" secondAttribute="leading" id="BAa-BC-bY4"/>
+                            <constraint firstAttribute="trailing" secondItem="TZc-Wq-K9c" secondAttribute="trailing" id="ClO-6m-nll"/>
+                            <constraint firstItem="KUE-8N-pm7" firstAttribute="top" secondItem="TZc-Wq-K9c" secondAttribute="bottom" id="j1V-gN-WHW"/>
+                            <constraint firstAttribute="trailing" secondItem="KUE-8N-pm7" secondAttribute="trailing" id="nQi-st-cON"/>
+                            <constraint firstItem="TZc-Wq-K9c" firstAttribute="height" secondItem="vwt-nz-enm" secondAttribute="height" multiplier="0.5" id="oe3-kg-fOi"/>
+                            <constraint firstItem="KUE-8N-pm7" firstAttribute="leading" secondItem="vwt-nz-enm" secondAttribute="leading" id="rfS-3v-6im"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="fechaLabel" destination="yJ6-kW-fZd" id="6dY-Fm-fTC"/>
+                        <outlet property="tareaLabel" destination="e6B-XE-5eh" id="4Vn-tw-5xb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NRc-ai-787" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
