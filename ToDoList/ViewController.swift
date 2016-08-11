@@ -14,7 +14,8 @@ class ViewController: UIViewController, UITableViewDelegate {
    //class let MAX_SIZE_TXT = 50
     static let MAX_SIZE_TXT = 50 //Las estaticas no se pueden sobreescribir
     let todoList = ToDoList()
-        
+    var selectedItem: String?
+    
     @IBAction func  addButtonPressed(sender: UIButton){
         print("Agregando un elemento a la lista: \(itemTextField.text)")
         todoList.addItem(itemTextField.text!)
@@ -35,13 +36,26 @@ class ViewController: UIViewController, UITableViewDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let DetailViewController = segue.destinationViewController as? DetailViewController{
+            DetailViewController.item = self.selectedItem
+        }
+    }
+    
     //MARK: Metodos del table view
     func scrollViewDidScroll(scrollView: UIScrollView) {
         self.itemTextField?.resignFirstResponder()
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.selectedItem  =  self.todoList.getItem(indexPath.row)
         self.performSegueWithIdentifier("showItem", sender: self)
+        //Si se quisiera hacer de forma programatica se comenta la linea de arriba y se pone
+        /*
+        let detailVC = DetailViewController()
+        detailVC.item = self.selectedItem
+        self.navigationController?.pushViewController(detailVC, animated: true)
+        */
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, ReplaceString string: String)-> Bool{

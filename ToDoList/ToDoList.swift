@@ -44,6 +44,10 @@ class ToDoList: NSObject {
             self.items = itemsArray
         }
     }
+    
+    func getItem(index: Int)->String{
+        return items[index]
+    }
 }
 
 extension ToDoList: UITableViewDataSource{
