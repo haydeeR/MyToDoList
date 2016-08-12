@@ -127,7 +127,7 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="KUE-8N-pm7">
+                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="KUE-8N-pm7">
                                 <rect key="frame" x="0.0" y="244" width="600" height="216"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="216" id="2Ka-SA-P4D"/>
@@ -139,6 +139,11 @@
                                 <date key="minimumDate" timeIntervalSinceReferenceDate="473338802">
                                     <!--2016-01-01 11:00:02 +0000-->
                                 </date>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="2Ka-SA-P4D"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <action selector="dateSelected:" destination="FRH-VY-v9q" eventType="valueChanged" id="uKm-rv-e3o"/>
                                 </connections>
@@ -157,20 +162,45 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="b9m-ZE-iqT">
+                                <rect key="frame" x="0.0" y="244" width="600" height="216"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="KUE-8N-pm7" firstAttribute="height" secondItem="b9m-ZE-iqT" secondAttribute="height" id="0iY-lS-QyH"/>
+                            <constraint firstItem="KUE-8N-pm7" firstAttribute="leading" secondItem="vwt-nz-enm" secondAttribute="leadingMargin" id="2Pu-Dk-fu7"/>
+                            <constraint firstItem="KUE-8N-pm7" firstAttribute="leading" secondItem="vwt-nz-enm" secondAttribute="leading" id="6VT-75-oKd"/>
                             <constraint firstItem="TZc-Wq-K9c" firstAttribute="top" secondItem="Dqv-m8-zHl" secondAttribute="bottom" id="92m-RN-hho"/>
                             <constraint firstItem="TZc-Wq-K9c" firstAttribute="leading" secondItem="vwt-nz-enm" secondAttribute="leading" id="BAa-BC-bY4"/>
                             <constraint firstAttribute="trailing" secondItem="TZc-Wq-K9c" secondAttribute="trailing" id="ClO-6m-nll"/>
+                            <constraint firstItem="b9m-ZE-iqT" firstAttribute="top" secondItem="TZc-Wq-K9c" secondAttribute="bottom" id="DBr-oT-HO4"/>
+                            <constraint firstItem="KUE-8N-pm7" firstAttribute="top" secondItem="TZc-Wq-K9c" secondAttribute="bottom" id="FpR-cZ-7SI"/>
+                            <constraint firstAttribute="trailing" secondItem="KUE-8N-pm7" secondAttribute="trailing" id="Hq6-cu-bxD"/>
                             <constraint firstItem="wKy-Ir-UwB" firstAttribute="top" secondItem="j0o-XQ-ouB" secondAttribute="bottom" id="IPE-yg-q0x"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="KUE-8N-pm7" secondAttribute="trailing" id="IiD-Y9-Kyp"/>
                             <constraint firstAttribute="trailing" secondItem="j0o-XQ-ouB" secondAttribute="trailing" id="XgP-Zs-oh9"/>
                             <constraint firstItem="j0o-XQ-ouB" firstAttribute="leading" secondItem="vwt-nz-enm" secondAttribute="leading" id="Yz5-kX-9NZ"/>
+                            <constraint firstItem="KUE-8N-pm7" firstAttribute="leading" secondItem="vwt-nz-enm" secondAttribute="leading" id="aKK-hi-7bN"/>
+                            <constraint firstItem="KUE-8N-pm7" firstAttribute="width" secondItem="b9m-ZE-iqT" secondAttribute="width" id="bUy-zV-AUf"/>
+                            <constraint firstItem="b9m-ZE-iqT" firstAttribute="leading" secondItem="vwt-nz-enm" secondAttribute="leading" id="cWf-v3-zXm"/>
                             <constraint firstItem="KUE-8N-pm7" firstAttribute="top" secondItem="TZc-Wq-K9c" secondAttribute="bottom" id="j1V-gN-WHW"/>
+                            <constraint firstItem="KUE-8N-pm7" firstAttribute="top" secondItem="TZc-Wq-K9c" secondAttribute="bottom" id="m30-kZ-gkB"/>
                             <constraint firstAttribute="trailing" secondItem="KUE-8N-pm7" secondAttribute="trailing" id="nQi-st-cON"/>
                             <constraint firstItem="TZc-Wq-K9c" firstAttribute="height" secondItem="vwt-nz-enm" secondAttribute="height" multiplier="0.3" id="oe3-kg-fOi"/>
                             <constraint firstItem="KUE-8N-pm7" firstAttribute="leading" secondItem="vwt-nz-enm" secondAttribute="leading" id="rfS-3v-6im"/>
+                            <constraint firstItem="KUE-8N-pm7" firstAttribute="top" secondItem="TZc-Wq-K9c" secondAttribute="bottom" id="uwW-KQ-2zV"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="2Pu-Dk-fu7"/>
+                                <exclude reference="IiD-Y9-Kyp"/>
+                                <exclude reference="j1V-gN-WHW"/>
+                                <exclude reference="m30-kZ-gkB"/>
+                                <exclude reference="nQi-st-cON"/>
+                                <exclude reference="rfS-3v-6im"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="swV-vx-bck">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="WQN-Ph-vVo">
@@ -180,6 +210,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="datePicker" destination="KUE-8N-pm7" id="6i4-uC-HmZ"/>
                         <outlet property="fechaLabel" destination="yJ6-kW-fZd" id="6dY-Fm-fTC"/>
                         <outlet property="tareaLabel" destination="e6B-XE-5eh" id="4Vn-tw-5xb"/>
                     </connections>

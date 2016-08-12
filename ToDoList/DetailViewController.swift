@@ -13,13 +13,23 @@ class DetailViewController: UIViewController {
     var item: String?
     @IBOutlet weak var tareaLabel: UILabel!
     @IBOutlet weak var fechaLabel: UILabel!
+    @IBOutlet weak var datePicker: UIDatePicker!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tareaLabel.text = item
-        // Do any additional setup after loading the view.
+        let tapGestureRecognizer = UITapGestureRecognizer()
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        tapGestureRecognizer.numberOfTouchesRequired = 1
+        tapGestureRecognizer.addTarget(self, action: "toggleDatePicker")
+        self.fechaLabel.addGestureRecognizer(tapGestureRecognizer)
+        self.fechaLabel.userInteractionEnabled = true
     }
 
+    func toggleDatePicker(){
+        self.datePicker.hidden = !self.datePicker.hidden
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -52,6 +62,7 @@ class DetailViewController: UIViewController {
     
     @IBAction func dateSelected(sender: UIDatePicker) {
         self.fechaLabel.text = formatDate(sender.date)
+        self.datePicker.hidden = true
     }
     
     func formatDate(date: NSDate)->String{
