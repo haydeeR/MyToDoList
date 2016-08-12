@@ -25,6 +25,31 @@ class DetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func addNotification(sender: UIBarButtonItem) {
+        if let dateString = self.fechaLabel.text{
+            if let parseString = parseDate(dateString){
+                scheduleNotification(self.item!, date: parseString)
+            }
+        }
+    }
+    
+    func scheduleNotification(message: String, date: NSDate){
+        let localNotification = UILocalNotification()
+        localNotification.fireDate = date
+        localNotification.timeZone = NSTimeZone.defaultTimeZone()
+        localNotification.alertBody = message
+        localNotification.alertTitle = "Recuerda esta tarea"
+        localNotification.applicationIconBadgeNumber = 1;
+        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+    }
+    
+    @IBAction func addImage(sender: UIBarButtonItem) {
+        let imagePickerController = UIImagePickerController()
+        //imagePickerController.sourceType = UIImagePickerControllerSourceType.Camera si el simulador
+        imagePickerController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        self.presentViewController(imagePickerController, animated: true, completion: nil)
+    }
+    
     @IBAction func dateSelected(sender: UIDatePicker) {
         self.fechaLabel.text = formatDate(sender.date)
     }
@@ -34,15 +59,12 @@ class DetailViewController: UIViewController {
         formatter.dateFormat = "dd/MM/yyyy HH:mm"
         return formatter.stringFromDate(date)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    func parseDate(string: String)->NSDate?{
+        let parse = NSDateFormatter()
+        parse.dateFormat = "dd/MM/yyyy HH:mm"
+        return parse.dateFromString(string)
     }
-    */
+
 
 }
