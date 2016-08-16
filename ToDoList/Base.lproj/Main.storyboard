@@ -212,7 +212,8 @@
                     <connections>
                         <outlet property="datePicker" destination="KUE-8N-pm7" id="6i4-uC-HmZ"/>
                         <outlet property="fechaLabel" destination="yJ6-kW-fZd" id="6dY-Fm-fTC"/>
-                        <outlet property="tareaLabel" destination="e6B-XE-5eh" id="4Vn-tw-5xb"/>
+                        <outlet property="imageView" destination="b9m-ZE-iqT" id="0JB-ic-50e"/>
+                        <outlet property="tareaLabel" destination="r9a-4Z-J0M" id="daQ-GX-cqw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NRc-ai-787" userLabel="First Responder" sceneMemberID="firstResponder"/>

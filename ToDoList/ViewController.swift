@@ -14,11 +14,13 @@ class ViewController: UIViewController, UITableViewDelegate {
    //class let MAX_SIZE_TXT = 50
     static let MAX_SIZE_TXT = 50 //Las estaticas no se pueden sobreescribir
     let todoList = ToDoList()
-    var selectedItem: String?
+    var selectedItem: ToDoItem?
     
     @IBAction func  addButtonPressed(sender: UIButton){
         print("Agregando un elemento a la lista: \(itemTextField.text)")
-        todoList.addItem(itemTextField.text!)
+        let todoItem = ToDoItem()
+        todoItem.todo = self.itemTextField.text!
+        todoList.addItem(todoItem)
         tableView.reloadData()
         self.itemTextField = nil
         self.itemTextField?.resignFirstResponder()
@@ -39,6 +41,7 @@ class ViewController: UIViewController, UITableViewDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let DetailViewController = segue.destinationViewController as? DetailViewController{
             DetailViewController.item = self.selectedItem
+            DetailViewController.todoList = self.todoList
         }
     }
     

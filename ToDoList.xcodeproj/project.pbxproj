@@ -16,6 +16,7 @@
 		9B47B1CD1D550BA700341178 /* ToDoListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B47B1CC1D550BA700341178 /* ToDoListUITests.swift */; };
 		9B72232B1D5A36BB0085FF59 /* ToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B72232A1D5A36BB0085FF59 /* ToDoList.swift */; };
 		9B72232F1D5C05A10085FF59 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B72232E1D5C05A10085FF59 /* DetailViewController.swift */; };
+		9B7C2CD61D626FFC003657A5 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7C2CD51D626FFC003657A5 /* ToDoItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		9B47B1CE1D550BA700341178 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B72232A1D5A36BB0085FF59 /* ToDoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoList.swift; sourceTree = "<group>"; };
 		9B72232E1D5C05A10085FF59 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		9B7C2CD51D626FFC003657A5 /* ToDoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				9B47B1B51D550B7600341178 /* LaunchScreen.storyboard */,
 				9B47B1B81D550B7600341178 /* Info.plist */,
 				9B72232E1D5C05A10085FF59 /* DetailViewController.swift */,
+				9B7C2CD51D626FFC003657A5 /* ToDoItem.swift */,
 			);
 			path = ToDoList;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 			files = (
 				9B47B1AF1D550B7600341178 /* ViewController.swift in Sources */,
 				9B72232B1D5A36BB0085FF59 /* ToDoList.swift in Sources */,
+				9B7C2CD61D626FFC003657A5 /* ToDoItem.swift in Sources */,
 				9B47B1AD1D550B7600341178 /* AppDelegate.swift in Sources */,
 				9B72232F1D5C05A10085FF59 /* DetailViewController.swift in Sources */,
 			);

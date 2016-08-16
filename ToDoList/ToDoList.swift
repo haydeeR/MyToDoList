@@ -9,7 +9,8 @@
 import UIKit
 
 class ToDoList: NSObject {
-    var items: [String] = []
+    //  var items: [String] = [] // Cambiamos por el tipo de clase que hicimos nosotros
+    var items:[ToDoItem] = []
     
     override init() {
         super.init()
@@ -21,15 +22,16 @@ class ToDoList: NSObject {
         let documentDirectoryURLs = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask) as [NSURL]
         let documentDirectoryURL = documentDirectoryURLs.first!
         print("La url de documentos es: \(documentDirectoryURL)")
-        return documentDirectoryURL.URLByAppendingPathComponent("todolist.items")
+        return documentDirectoryURL.URLByAppendingPathComponent("todolist.plist")
     }()
 
-    func addItem(item: String){
+    func addItem(item: ToDoItem){
         items.append(item)
         saveItems()
     }
     
     func saveItems(){
+        /* solo con NSArray.writeTo
         let itemsArray = items as NSArray
         if itemsArray.writeToURL(self.fileURL, atomically: true){
             print("Guardado")
@@ -37,15 +39,27 @@ class ToDoList: NSObject {
         else{
             print("No se pudo guardar")
         }
-    }
-    
-    func loadItems(){
-        if let itemsArray = NSArray(contentsOfURL: self.fileURL) as? [String]{
-            self.items = itemsArray
+        */ //Con NSCoding
+        let itemsArray = items as NSArray
+        if(NSKeyedArchiver.archiveRootObject(itemsArray, toFile: self.fileURL.path!)){
+            print("Guardado")
+        }else{
+            print("No se pudo guardar")
         }
     }
     
-    func getItem(index: Int)->String{
+    func loadItems(){
+        /* Solo para NSArray
+        if let itemsArray = NSArray(contentsOfURL: self.fileURL) as? [String]{
+            self.items = itemsArray
+        }
+*/          //Con NSCoding
+        if let itemsArray = NSKeyedUnarchiver.unarchiveObjectWithFile(self.fileURL.path!){
+            self.items = itemsArray as! [ToDoItem]
+        }
+    }
+    
+    func getItem(index: Int)->ToDoItem{
         return items[index]
     }
 }
@@ -59,7 +73,7 @@ extension ToDoList: UITableViewDataSource{
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell",forIndexPath: indexPath)
         let item = items[indexPath.row]
         
-        cell.textLabel!.text = item //Lo ponemos con el signo de admiracion por que es opcional
+        cell.textLabel!.text = item.todo //Lo ponemos con el signo de admiracion por que es opcional
         return cell
     }
     
