@@ -42,8 +42,11 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     func toggleDatePicker(){
-        self.imageView.hidden = self.datePicker.hidden
-        self.datePicker.hidden = !self.datePicker.hidden
+        if self.datePicker.hidden{
+            self.fadeInDatePicker()
+        }else{
+            self.fadeOutDatePicker()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -57,9 +60,27 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
                 self.item?.dueDate = parseString
                 self.todoList?.saveItems()
                 scheduleNotification(self.item!.todo!, date: parseString)
-                navigationController?.popViewControllerAnimated(true)
+                API.save(self.item! , todolist:self.todoList!){ (response, error) in
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        if error != nil{
+                            self.showError()
+                        }else{
+                            self.navigationController?.popViewControllerAnimated(true)
+                        }
+                    })
+                }
             }
         }
+    }
+    //No se como mostrar el error en un clousure
+    func showError(){
+        let alert = UIAlertController(title: "Ups", message: "No pudimos guardar tus cambios 😒, revisa tu conexion a internet", preferredStyle: .Alert)
+        let accion = UIAlertAction(title: "OK", style: .Default){
+            _ in
+            self.navigationController?.popViewControllerAnimated(true)
+        }
+        alert.addAction(accion)
+        self.presentViewController(alert,animated: true,completion: nil)
     }
     
     func scheduleNotification(message: String, date: NSDate){
@@ -96,6 +117,29 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
         let parse = NSDateFormatter()
         parse.dateFormat = "dd/MM/yyyy HH:mm"
         return parse.dateFromString(string)
+    }
+    
+    //MARK: Animation
+    func fadeInDatePicker(){
+        self.datePicker.alpha = 0
+        self.datePicker.hidden = false
+        UIView.animateWithDuration(1) { () -> Void in
+            self.datePicker.alpha = 1
+            self.imageView.alpha = 0
+        }
+    }
+    
+    func fadeOutDatePicker(){
+        self.datePicker.alpha = 1
+        self.datePicker.hidden = false
+        UIView.animateWithDuration(1, animations: { () -> Void in
+            self.datePicker.alpha = 0
+            self.imageView.alpha = 1
+            }) { (completed) -> Void in
+                if completed {
+                    self.datePicker.hidden = true
+                }
+        }
     }
     
     //MARK: ImagePickerControllerMethons

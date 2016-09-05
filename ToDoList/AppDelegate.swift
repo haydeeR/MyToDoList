@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.sharedApplication().registerUserNotificationSettings(settings)
         UIApplication.sharedApplication().registerForRemoteNotifications()
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+        print(API.uniqueUsername())
         return true
     }
 
@@ -50,10 +51,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        if let message = notification.alertBody{
-            let alert = UIAlertView(title: "", message: message, delegate: nil, cancelButtonTitle: "OK")
-            alert.show()
-        }
+       // if let message = notification.alertBody{
+       //     let alert = UIAlertView(title: "", message: message, delegate: nil, cancelButtonTitle: "OK")
+       //     alert.show()
+       // }
     }
 
 }
