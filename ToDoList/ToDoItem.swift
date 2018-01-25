@@ -11,6 +11,10 @@ import UIKit
 
 class ToDoItem: NSObject, NSCoding {
     
+    func encode(with aCoder: NSCoder) {
+        //something
+    }
+    
     var todo: String?
     
     var dueDate: NSDate?
@@ -25,16 +29,16 @@ class ToDoItem: NSObject, NSCoding {
     
     required init(coder aDecoder: NSCoder) {
         super.init()
-        if let message = aDecoder.decodeObjectForKey("todo") as? String{
+        if let message = aDecoder.decodeObject(forKey: "todo") as? String{
             self.todo = message
         }
-        if let date = aDecoder.decodeObjectForKey("dueDate") as? NSDate{
+        if let date = aDecoder.decodeObject(forKey: "dueDate") as? NSDate{
             self.dueDate = date
         }
-        if let img = aDecoder.decodeObjectForKey("image") as? UIImage{
+        if let img = aDecoder.decodeObject(forKey: "image") as? UIImage{
             self.image = img
         }
-        let identifier = aDecoder.decodeInt64ForKey("identifier")
+        let identifier = aDecoder.decodeInt64(forKey: "identifier")
         if identifier != 0 {
             self.id = identifier
         }
@@ -43,16 +47,16 @@ class ToDoItem: NSObject, NSCoding {
     
     func encodeWithCoder(aCoder: NSCoder) {
         if let message = self.todo{
-            aCoder.encodeObject(message, forKey: "todo")
+            aCoder.encode(message, forKey: "todo")
         }
         if let date = self.dueDate{
-            aCoder.encodeObject(date,forKey: "dueDate")
+            aCoder.encode(date,forKey: "dueDate")
         }
         if let img = self.image{
-            aCoder.encodeObject(img,forKey: "image")
+            aCoder.encode(img,forKey: "image")
         }
         if let identifier = self.id{
-            aCoder.encodeInt64(identifier, forKey: "identifier")
+            aCoder.encode(identifier, forKey: "identifier")
         }
     }
 }

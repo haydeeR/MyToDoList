@@ -18,11 +18,11 @@ class ToDoList: NSObject {
     }
     
     private let fileURL: NSURL = {
-        let fileManager = NSFileManager.defaultManager()
-        let documentDirectoryURLs = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask) as [NSURL]
+        let fileManager = FileManager.default
+        let documentDirectoryURLs = fileManager.urls(for: .documentDirectory, in: .userDomainMask) as [NSURL]
         let documentDirectoryURL = documentDirectoryURLs.first!
         print("La url de documentos es: \(documentDirectoryURL)")
-        return documentDirectoryURL.URLByAppendingPathComponent("todolist.plist")
+        return documentDirectoryURL.appendingPathComponent("todolist.plist")! as NSURL
     }()
 
     func addItem(item: ToDoItem){
@@ -54,7 +54,7 @@ class ToDoList: NSObject {
             self.items = itemsArray
         }
 */          //Con NSCoding
-        if let itemsArray = NSKeyedUnarchiver.unarchiveObjectWithFile(self.fileURL.path!){
+        if let itemsArray = NSKeyedUnarchiver.unarchiveObject(withFile: self.fileURL.path!){
             self.items = itemsArray as! [ToDoItem]
         }
     }
@@ -65,28 +65,28 @@ class ToDoList: NSObject {
 }
 
 extension ToDoList: UITableViewDataSource{
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell",forIndexPath: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",for: indexPath)
         let item = items[indexPath.row]
         
         cell.textLabel!.text = item.todo //Lo ponemos con el signo de admiracion por que es opcional
         return cell
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true         //se dice que si se puede editar la celda de la tabla
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,
-        forRowAtIndexPath indexPath: NSIndexPath) {
-        items.removeAtIndex(indexPath.row)
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle,
+                   forRowAt indexPath: IndexPath) -> () {
+        items.remove(at: indexPath.row)
         saveItems()
         tableView.beginUpdates()
-        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Middle)
+        tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.middle)
         tableView.endUpdates()
     }
 }

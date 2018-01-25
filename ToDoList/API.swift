@@ -10,60 +10,60 @@ import UIKit
 
 class API {
     class func uniqueUsername()->String{
-        if let username = NSUserDefaults.standardUserDefaults().objectForKey("username") as? String {
+        if let username = UserDefaults.standard.object(forKey: "username") as? String {
             return username
         }else{
             let newUsername = self.generateUserName()
-            NSUserDefaults.standardUserDefaults().setObject(newUsername, forKey: "username")
+            UserDefaults.standard.set(newUsername, forKey: "username")
             return newUsername
         }
     }
     
     class func generateUserName()->String {
-       let uuid = NSUUID().UUIDString
-        return (uuid as NSString).substringToIndex(5)
+        let uuid = NSUUID().uuidString
+        return (uuid as NSString).substring(to: 5)
     }
     
     
-    class func save(item: ToDoItem, todolist: ToDoList, completionBlock : (response : String?, error : NSError?) -> Void) {
+    class func save(item: ToDoItem, todolist: ToDoList, completionBlock : (_ response : String?, _ error : NSError?) -> Void) {
             //Recuperamos la sesion que ya existe en cualquier aplicacion
-            let session = NSURLSession.sharedSession()
+        let session = URLSession.shared
             //Obtenemos la url del servicio web
             let url = NSURL(string: "http://api.geonames.org/citiesJSON")
             //Hacemos la peticion del servicio web
-            let request = NSMutableURLRequest(URL: url!)
+        let request = NSMutableURLRequest(url: url! as URL)
             //Especificamos que tipo de metodo http es el que vamos a usar
-            request.HTTPMethod = "POST"
+        request.httpMethod = "POST"
             
             //diccionario es un diccionario tipo json
             //Todo dependiendo de la documentacion de la API
             //usuario
-            var dictionary: Dictionary<String, AnyObject> = ["message": item.todo!,
-                "user": API.uniqueUsername()]
+        var dictionary: Dictionary<String, AnyObject> = ["message": item.todo! as AnyObject,
+                                                         "user": API.uniqueUsername() as AnyObject]
             //fecha
             if let date = item.dueDate{
-                let formatter = NSDateFormatter()
+                let formatter = DateFormatter()
                 formatter.dateFormat = "dd/MM/yyyy HH:mm"
-                dictionary["dueDate"] = formatter.stringFromDate(date)
+                dictionary["dueDate"] = formatter.string(from: date as Date) as AnyObject
             }
             //identificador
             if let identifier = item.id {
-                dictionary["id"] = NSNumber(longLong: identifier)
+                dictionary["id"] = NSNumber(value: identifier)
             }
             //Para hacer el JSON
-            let data = try! NSJSONSerialization.dataWithJSONObject(dictionary, options: NSJSONWritingOptions.PrettyPrinted)
-            request.HTTPBody = data
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: JSONSerialization.WritingOptions.prettyPrinted)
+        request.httpBody = data
             
-            let task = session.dataTaskWithRequest(request) {
+        let task = session.dataTask(with: request as URLRequest) {
                 (data, response, error) -> Void in
                 if error != nil {
-                    print("Lo siento paso un error: \(error)")
+                    print("Lo siento paso un error: \(String(describing: error))")
                 }else{
                     //Si no hubo erro tenemos que hacer la desserializacion y convertilo a un json
                     if let d = data {
                         //Aqui se deserializa
-                        let result = try! NSJSONSerialization.JSONObjectWithData(d, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary
-                        print("response: \(result)")
+                        let result = try! JSONSerialization.jsonObject(with: d, options: JSONSerialization.ReadingOptions.allowFragments) as? NSDictionary
+                        print("response: \(String(describing: result))")
                         //ya desserializado cargamos los datos de la clase a traves del json
                         if let id = result!["id"] as? Int64{
                             item.id = id

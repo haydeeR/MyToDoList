@@ -17,10 +17,10 @@ class ViewController: UIViewController, UITableViewDelegate {
     var selectedItem: ToDoItem?
     
     @IBAction func  addButtonPressed(sender: UIButton){
-        print("Agregando un elemento a la lista: \(itemTextField.text)")
+        print("Agregando un elemento a la lista: \(String(describing: itemTextField.text))")
         let todoItem = ToDoItem()
         todoItem.todo = self.itemTextField.text!
-        todoList.addItem(todoItem)
+        todoList.addItem(item: todoItem)
         tableView.reloadData()
         self.itemTextField = nil
         self.itemTextField?.resignFirstResponder()
@@ -29,7 +29,7 @@ class ViewController: UIViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.dataSource = todoList
         tableView.delegate = self
     }
@@ -38,21 +38,22 @@ class ViewController: UIViewController, UITableViewDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let DetailViewController = segue.destinationViewController as? DetailViewController{
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        if let DetailViewController = segue.destination as? DetailViewController{
             DetailViewController.item = self.selectedItem
             DetailViewController.todoList = self.todoList
         }
     }
     
     //MARK: Metodos del table view
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.itemTextField?.resignFirstResponder()
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.selectedItem  =  self.todoList.getItem(indexPath.row)
-        self.performSegueWithIdentifier("showItem", sender: self)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedItem  =  self.todoList.getItem(index: indexPath.row)
+        self.performSegue(withIdentifier: "showItem", sender: self)
         //Si se quisiera hacer de forma programatica se comenta la linea de arriba y se pone
         /*
         let detailVC = DetailViewController()
@@ -62,9 +63,9 @@ class ViewController: UIViewController, UITableViewDelegate {
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, ReplaceString string: String)-> Bool{
-        if let newString = textField.text as? NSString{
-            let updatedString = newString.stringByReplacingCharactersInRange(range, withString: string)
-            return updatedString.characters.count <= ViewController.MAX_SIZE_TXT
+        if let newString = textField.text as NSString?{
+            let updatedString = newString.replacingCharacters(in: range, with: string)
+            return updatedString.count <= ViewController.MAX_SIZE_TXT
         }
         else{
             return true
